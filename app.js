@@ -2,6 +2,8 @@ const canvas = document.querySelector('canvas');
 const lineWidth = document.getElementById('line-width');
 const color = document.getElementById('color');
 const modeBtn = document.getElementById('mode-btn');
+const destroyBtn = document.getElementById('destory-btn');
+const eraserBtn = document.getElementById('eraser-btn');
 const colorOptions = Array.from(document.getElementsByClassName('color-option'));
 const ctx = canvas.getContext('2d');
 
@@ -50,10 +52,10 @@ function onColorClick(event){
 function onModeClick(){
     if(isFilling){
         isFilling = false;
-        modeBtn.innerText = "Fill";
+        modeBtn.innerText = "채우기";
     }else{
         isFilling = true;
-        modeBtn.innerText = "Draw";
+        modeBtn.innerText = "그리기";
     }
 }
 
@@ -63,6 +65,16 @@ function onCanvasClick(){
     }
 }
 
+function onDestroyClick(){
+    ctx.fillStyle = "white";
+    ctx.fillRect(0,0,800,800);
+}
+
+function onEraserClick(){
+    ctx.strokeStyle = "white";
+    isFilling = false;
+    modeBtn.innerText = "채우기";
+}
 canvas.addEventListener('mousemove', onMove);
 canvas.addEventListener('mousedown', onMouseDown);
 canvas.addEventListener('mouseup', onMouseUp);
@@ -76,3 +88,5 @@ color.addEventListener('change', onColorChange);
 colorOptions.forEach(color => color.addEventListener('click', onColorClick));
 
 modeBtn.addEventListener('click', onModeClick);
+destroyBtn.addEventListener('click', onDestroyClick);
+eraserBtn.addEventListener('click', onEraserClick);
