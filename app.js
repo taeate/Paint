@@ -5,6 +5,7 @@ const modeBtn = document.getElementById('mode-btn');
 const destroyBtn = document.getElementById('destory-btn');
 const eraserBtn = document.getElementById('eraser-btn');
 const fileInput = document.getElementById('file');
+const textInput = document.getElementById('text');
 const colorOptions = Array.from(document.getElementsByClassName('color-option'));
 const ctx = canvas.getContext('2d');
 
@@ -89,6 +90,15 @@ function onFileInputChange(event){
     };
 }
 
+function onDoubleClick(event) {
+    ctx.save();
+    const text = textInput.value;
+    ctx.lineWidth = 1;
+    ctx.strokeText(text, event.offsetX, event.offsetY);
+    ctx.restore();
+}
+
+canvas.addEventListener('dblclick', onDoubleClick);
 canvas.addEventListener('mousemove', onMove);
 canvas.addEventListener('mousedown', onMouseDown);
 canvas.addEventListener('mouseup', onMouseUp);
