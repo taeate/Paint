@@ -12,7 +12,7 @@ const ctx = canvas.getContext('2d');
 
 canvas.width = 800;
 canvas.height = 800;
-
+ctx.lineCap = 'round';
 ctx.lineWidth = lineWidth.value;
 ctx.moveTo(0,0);
 let isPainting = false;
@@ -91,11 +91,14 @@ function onFileInputChange(event){
 }
 
 function onDoubleClick(event) {
-    ctx.save();
     const text = textInput.value;
+    if(text !== "") {
+    ctx.save();
     ctx.lineWidth = 1;
-    ctx.strokeText(text, event.offsetX, event.offsetY);
+    ctx.font = "48px serlf"
+    ctx.fillText(text, event.offsetX, event.offsetY);
     ctx.restore();
+    }
 }
 
 canvas.addEventListener('dblclick', onDoubleClick);
