@@ -4,8 +4,10 @@ const color = document.getElementById('color');
 const modeBtn = document.getElementById('mode-btn');
 const destroyBtn = document.getElementById('destory-btn');
 const eraserBtn = document.getElementById('eraser-btn');
+const fileInput = document.getElementById('file');
 const colorOptions = Array.from(document.getElementsByClassName('color-option'));
 const ctx = canvas.getContext('2d');
+
 
 canvas.width = 800;
 canvas.height = 800;
@@ -75,6 +77,18 @@ function onEraserClick(){
     isFilling = false;
     modeBtn.innerText = "채우기";
 }
+
+function onFileInputChange(event){
+    const file = event.target.files[0];
+    const url = URL.createObjectURL(file);
+    const image = new Image();
+    image.src = url;
+    image.onload = function() {
+        ctx.drawImage(image, 0, 0, 800, 800);
+        fileInput.value = null;
+    };
+}
+
 canvas.addEventListener('mousemove', onMove);
 canvas.addEventListener('mousedown', onMouseDown);
 canvas.addEventListener('mouseup', onMouseUp);
@@ -84,6 +98,7 @@ canvas.addEventListener('click', onCanvasClick);
 
 lineWidth.addEventListener('change', onLineWidthChange);
 color.addEventListener('change', onColorChange);
+fileInput.addEventListener('change', onFileInputChange);
 
 colorOptions.forEach(color => color.addEventListener('click', onColorClick));
 
